@@ -19,12 +19,19 @@ alias la='ls -AF'
 alias l='ls -CF'
 alias l.='ls -d .*'
 
-# Some more alias to avoid making mistakes:
-alias rm='rm -i'
-alias cp='cp -i'
-alias mv='mv -i'
+# create parent directories on demand and verbose directory actions
+alias mkdir='mkdir -pv'
+alias rmdir='rmdir -v'
 
-# directory changing
-alias cd="cd -P"
-alias cd..='cd ..'
-alias ..='cd ..'
+# add some safety to more often used commands
+alias rm='rm -I --preserve-root'
+alias mv='mv -i'
+alias cp='cp -i'
+alias ln='ln -i'
+alias chown='chown --preserve-root'
+alias chmod='chmod --preserve-root'
+alias chgrp='chgrp --preserve-root'
+
+# make an output use a random color per line
+# use like so: $ tail -f file.log | colorize
+alias colorize='while read -r line; do printf "\033[38;5;%dm%s\033[0m\n" $(($RANDOM%255)) "$line"; done'
