@@ -1,9 +1,6 @@
 PS1='\[\033[0m\]Container: \[\033[0;32m\]${debian_chroot:+($debian_chroot)}\u@\h \[\033[0;36m\]\w \[\033[0m\]\$ '
 umask 022
 
-# add WP cli auto completion
-source /usr/local/bin/wp-completion.sh
-
 # colorize ls output
 if [[ -x /usr/bin/dircolors ]]; then
     test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
@@ -43,6 +40,3 @@ alias chgrp='chgrp --preserve-root'
 # make an output use a random color per line
 # use like so: $ tail -f file.log | colorize
 alias colorize='while read -r line; do printf "\033[38;5;%dm%s\033[0m\n" $(($RANDOM%255)) "$line"; done'
-
-# exec WP cli as www-data
-alias wp='runuser -u www-data -g www-data -- wp'

@@ -6,7 +6,6 @@ MAINTAINER VCAT Consulting GmbH <team.sf@vcat.de>
 ENV TZ Europe/Berlin
 ENV COMPOSER_ALLOW_SUPERUSER 1
 ENV COMPOSER1_VERSION 1.10.20
-ENV WP_CLI_VERSION 2.4.0
 ENV NODE_VERSION 14.15.4
 ENV YARN_VERSION 1.22.10
 
@@ -33,11 +32,6 @@ RUN curl -sS https://getcomposer.org/installer | php && \
 # TODO: remove composer1 if our packages are more stable
 RUN curl -sSo /usr/local/bin/composer1 https://getcomposer.org/download/$COMPOSER1_VERSION/composer.phar && \
     chmod +x /usr/local/bin/composer1
-
-# install WP cli
-RUN curl -sSo /usr/local/bin/wp https://github.com/wp-cli/wp-cli/releases/download/v$WP_CLI_VERSION/wp-cli-$WP_CLI_VERSION.phar && \
-    curl -sSo /usr/local/bin/wp-completion.sh https://raw.githubusercontent.com/wp-cli/wp-cli/v$WP_CLI_VERSION/utils/wp-completion.bash && \
-    chmod +x /usr/local/bin/wp /usr/local/bin/wp-completion.sh
 
 # fix the users permissions for www-data and reset this for the project directory
 RUN groupmod -g 1000 www-data && \
