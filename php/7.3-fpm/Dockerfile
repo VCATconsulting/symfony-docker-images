@@ -4,6 +4,7 @@ MAINTAINER VCAT Consulting GmbH <team.sf@vcat.de>
 
 # variables
 ENV TZ Europe/Berlin
+ENV COMPOSER_ALLOW_SUPERUSER 1
 ENV COMPOSER1_VERSION 1.10.20
 ENV WP_CLI_VERSION 2.4.0
 ENV NODE_VERSION 14.15.4
@@ -25,7 +26,6 @@ RUN set -eux && \
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
 # install composer
-ENV COMPOSER_ALLOW_SUPERUSER 1
 RUN curl -sS https://getcomposer.org/installer | php && \
 	chmod +x composer.phar && \
 	mv composer.phar /usr/local/bin/composer
