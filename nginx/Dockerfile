@@ -1,5 +1,7 @@
 FROM nginx:latest
 
+MAINTAINER VCAT Consulting GmbH <team.sf@vcat.de>
+
 # set env variables
 ENV NGINX_PHP_HOST php
 ENV NGINX_PHP_PORT 9000
