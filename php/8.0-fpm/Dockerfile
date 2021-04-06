@@ -18,8 +18,7 @@ RUN set -eux && \
     docker-php-ext-configure gd --enable-gd --with-freetype --with-jpeg --with-webp && \
     docker-php-ext-configure mysqli --with-mysqli=mysqlnd && \
     docker-php-ext-configure pdo_mysql --with-pdo-mysql=mysqlnd && \
-    docker-php-ext-configure zip && \
-	docker-php-ext-install -j "$(nproc)" intl opcache pdo_pgsql calendar tidy exif xsl > /dev/null && \
+	docker-php-ext-install -j "$(nproc)" intl opcache pdo_pgsql pdo_mysql calendar tidy exif xsl zip > /dev/null && \
 	apt-get autoremove && rm -rf /var/lib/apt/lists/*
 
 # install imagemagick from repo
