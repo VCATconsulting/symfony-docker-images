@@ -5,8 +5,8 @@ MAINTAINER VCAT Consulting GmbH <team.sf@vcat.de>
 # variables
 ENV TZ Europe/Berlin
 ENV COMPOSER_ALLOW_SUPERUSER 1
-ENV COMPOSER1_VERSION 1.10.21
-ENV NODE_VERSION 14.16.0
+ENV COMPOSER1_VERSION 1.10.22
+ENV NODE_VERSION 14.17.0
 ENV YARN_VERSION 1.22.10
 
 # install modules for git and php
@@ -14,12 +14,13 @@ ENV YARN_VERSION 1.22.10
 RUN set -eux && \
     apt-get update && apt-get install -y git vim zip unzip \
     libicu-dev libcurl4-gnutls-dev libzip-dev zlib1g-dev libfreetype6-dev libjpeg62-turbo-dev libpng-dev libmagickwand-dev && \
-    pecl install imagick && \
+    pecl install -o -f redis imagick && \
     docker-php-ext-install -j "$(nproc)" iconv mysqli pdo_mysql intl zip curl calendar && \
     docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ && \
     docker-php-ext-install -j "$(nproc)" gd && \
     docker-php-ext-enable imagick && \
-    apt-get autoremove && rm -rf /var/lib/apt/lists/*
+    docker-php-ext-enable redis && \
+    apt-get autoremove && rm -rf /var/lib/apt/lists/* && rm -rf /tmp/pear
 
 # fix the timezone in unix
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
