@@ -40,3 +40,11 @@ alias chgrp='chgrp --preserve-root'
 # make an output use a random color per line
 # use like so: $ tail -f file.log | colorize
 alias colorize='while read -r line; do printf "\033[38;5;%dm%s\033[0m\n" $(($RANDOM%255)) "$line"; done'
+
+# exec various cli commands as www-data
+alias php='runuser -u www-data -g www-data -- php'
+alias composer='runuser -u www-data -g www-data -- composer'
+alias composer1='runuser -u www-data -g www-data -- composer1'
+alias npm='runuser -u www-data -g www-data -- npm'
+alias yarn='runuser -u www-data -g www-data -- yarn'
+alias node='runuser -u www-data -g www-data -- node'
