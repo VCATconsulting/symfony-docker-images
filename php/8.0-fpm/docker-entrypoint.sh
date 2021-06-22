@@ -3,6 +3,7 @@ set -e
 
 # import .ssh files, if existing
 if [[ -d "/tmp/.ssh" ]]; then
+    # copy and modify it for root user
     cp -R /tmp/.ssh /root/.ssh
 
     chown -R root:root /root/.ssh
@@ -17,6 +18,10 @@ if [[ -d "/tmp/.ssh" ]]; then
     if [[ -f "/root/.ssh/config" ]]; then
         chmod 640 /root/.ssh/config
     fi
+
+    # and make another copy for www-data user
+    cp -R /root/.ssh /var/www/.ssh
+    chown -R www-data:www-data /var/www/.ssh
 fi
 
 # first arg is `-f` or `--some-option`

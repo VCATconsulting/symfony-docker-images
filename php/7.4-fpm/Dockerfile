@@ -41,7 +41,8 @@ RUN curl -sSo /usr/local/bin/composer1 https://getcomposer.org/download/$COMPOSE
 # fix the users permissions for www-data and reset this for the project directory
 RUN groupmod -g 1000 www-data && \
     usermod -u 1000 www-data && \
-    chown www-data:www-data /var/www/html
+    mkdir -p /var/www/html && \
+    chown -R www-data:www-data /var/www
 
 # add NodeJS, NPM and yarn to the development stack
 RUN curl -fsSLO --compressed "https://nodejs.org/dist/v$NODE_VERSION/node-v$NODE_VERSION-linux-x64.tar.xz" && \
