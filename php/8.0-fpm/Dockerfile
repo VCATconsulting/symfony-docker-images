@@ -19,7 +19,7 @@ RUN set -eux && \
     docker-php-ext-configure gd --enable-gd --with-freetype --with-jpeg --with-webp && \
     docker-php-ext-configure mysqli --with-mysqli=mysqlnd && \
     docker-php-ext-configure pdo_mysql --with-pdo-mysql=mysqlnd && \
-	docker-php-ext-install -j "$(nproc)" gd intl opcache pdo_pgsql pdo_mysql calendar tidy exif xsl zip > /dev/null && \
+	docker-php-ext-install -j "$(nproc)" gd intl opcache pdo_pgsql pdo_mysql calendar tidy exif xsl zip ldap > /dev/null && \
 	docker-php-ext-enable redis && \
 	apt-get autoremove && rm -rf /var/lib/apt/lists/* && rm -rf /tmp/pear
 
