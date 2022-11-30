@@ -14,12 +14,13 @@ ENV YARN_VERSION 1.22.10
 RUN set -eux && \
     apt-get update && apt-get install -y git vim zip unzip \
     libicu-dev libcurl4-gnutls-dev libzip-dev zlib1g-dev libfreetype6-dev libjpeg62-turbo-dev libpng-dev libpq-dev \
-    libwebp-dev libmagickwand-dev libtidy-dev libxslt-dev && \
+    libwebp-dev libmagickwand-dev libtidy-dev libxslt-dev libldap2-dev && \
     pecl install -o -f redis && \
     docker-php-ext-configure gd --enable-gd --with-freetype --with-jpeg --with-webp && \
     docker-php-ext-configure mysqli --with-mysqli=mysqlnd && \
     docker-php-ext-configure pdo_mysql --with-pdo-mysql=mysqlnd && \
-	docker-php-ext-install -j "$(nproc)" gd intl opcache pdo_pgsql pdo_mysql calendar tidy exif xsl zip > /dev/null && \
+    docker-php-ext-configure ldap --with-libdir=lib/x86_64-linux-gnu/ && \
+	docker-php-ext-install -j "$(nproc)" gd intl opcache pdo_pgsql pdo_mysql calendar tidy exif xsl zip ldap > /dev/null && \
 	docker-php-ext-enable redis && \
 	apt-get autoremove && rm -rf /var/lib/apt/lists/* && rm -rf /tmp/pear
 
