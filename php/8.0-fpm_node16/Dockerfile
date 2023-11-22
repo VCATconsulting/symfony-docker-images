@@ -44,6 +44,24 @@ RUN curl -sS https://getcomposer.org/installer | php && \
 RUN curl -sSo /usr/local/bin/composer1 https://getcomposer.org/download/$COMPOSER1_VERSION/composer.phar && \
     chmod +x /usr/local/bin/composer1
 
+# Add python2.7 and pip
+ARG PYTHON_VERSION=2.7.9
+# Install dependencies
+RUN apt-get update \
+  && apt-get install -y wget gcc make openssl libffi-dev libgdbm-dev libsqlite3-dev libssl-dev zlib1g-dev \
+  && apt-get clean
+
+WORKDIR /tmp/
+
+# Build Python from source
+RUN wget https://www.python.org/ftp/python/$PYTHON_VERSION/Python-$PYTHON_VERSION.tgz \
+  && tar --extract -f Python-$PYTHON_VERSION.tgz \
+  && cd ./Python-$PYTHON_VERSION/ \
+  && ./configure --with-ensurepip=install --enable-optimizations --prefix=/usr/local \
+  && make && make install \
+  && cd ../ \
+  && rm -r ./Python-$PYTHON_VERSION*
+
 # fix the users permissions for www-data and reset this for the project directory
 RUN set -x && \
     groupmod -g 1000 www-data && \
